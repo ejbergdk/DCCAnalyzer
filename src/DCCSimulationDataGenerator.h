@@ -17,11 +17,14 @@ public:
 protected:
 	DCCAnalyzerSettings* mSettings;
 	U32 mSimulationSampleRateHz;
+	U64 mBitLen0;
+	U64 mBitLen1;
 
 protected:
-	void CreateSerialByte();
-	std::string mSerialText;
-	U32 mStringIndex;
+	void Create0bit();
+	void Create1bit();
+	void CreatePreamble(U32 len);
+	void CreateByte(U8 data);
 
 	SimulationChannelDescriptor mSerialSimulationData;
 

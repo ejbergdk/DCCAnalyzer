@@ -28,12 +28,28 @@ protected: //vars
 	AnalyzerChannelData* mSerial;
 
 	DCCSimulationDataGenerator mSimulationDataGenerator;
-	bool mSimulationInitilized;
+	bool mSimulationInitialized;
+
+	enum DCCBitState { BS_NONE, BS_0, BS_1 };
+	//typedef enum DCCBitTiming { BT_OUTOFSPEC, BT_RELAXED, BT_STRICT };
+	enum DCCDecoderState { DS_IDLE, DS_PREAMBLE, DS_HALFSTART, DS_DATABYTE, DS_STARTEND };
+	typedef struct {
+		U64 bit0min;
+		U64 bit0max;
+		U64 bit0summax;
+		U64 bit1min;
+		U64 bit1max;
+		U64 bit1diffmax;
+		U32 preamble_count_min;
+	} BitTimingFilterType;
 
 	//Serial analysis vars:
 	U32 mSampleRateHz;
-	U32 mStartOfStopBitOffset;
-	U32 mEndOfStopBitOffset;
+	U64 mPrevEdge;
+	DCCDecoderState mState;
+
+	void SetupResults();
+	DCCBitState DetermineHalfBitType(U64 bitlen, BitTimingFilterType* filter);
 };
 
 extern "C" ANALYZER_EXPORT const char* __cdecl GetAnalyzerName();

@@ -19,6 +19,7 @@ public:
 	virtual void GeneratePacketTabularText( U64 packet_id, DisplayBase display_base );
 	virtual void GenerateTransactionTabularText( U64 transaction_id, DisplayBase display_base );
 
+	enum FrameType { FT_Preamble, FT_Data, FT_Checksum };
 protected: //functions
 
 protected:  //vars

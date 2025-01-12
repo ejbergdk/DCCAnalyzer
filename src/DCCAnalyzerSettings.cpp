@@ -4,27 +4,24 @@
 
 DCCAnalyzerSettings::DCCAnalyzerSettings()
 :	mInputChannel( UNDEFINED_CHANNEL ),
-	mBitRate( 9600 ),
-	mInputChannelInterface(),
-	mBitRateInterface()
+	mStrictTiming( false )
 {
-	mInputChannelInterface.SetTitleAndTooltip( "Serial", "Standard DCC" );
+	mInputChannelInterface.SetTitleAndTooltip( "DCC", "DCC data line" );
 	mInputChannelInterface.SetChannel( mInputChannel );
 
-	mBitRateInterface.SetTitleAndTooltip( "Bit Rate (Bits/S)",  "Specify the bit rate in bits per second." );
-	mBitRateInterface.SetMax( 6000000 );
-	mBitRateInterface.SetMin( 1 );
-	mBitRateInterface.SetInteger( mBitRate );
+	mStrictTimingInterface.SetTitleAndTooltip("", "Enable to verify Command Station transmission conformance");
+	mStrictTimingInterface.SetCheckBoxText("Display strict timing errors");
+	mStrictTimingInterface.SetValue(mStrictTiming);
 
-	AddInterface( &mInputChannelInterface );
-	AddInterface( &mBitRateInterface );
+	AddInterface(&mInputChannelInterface);
+	AddInterface(&mStrictTimingInterface);
 
 	AddExportOption( 0, "Export as text/csv file" );
 	AddExportExtension( 0, "text", "txt" );
 	AddExportExtension( 0, "csv", "csv" );
 
 	ClearChannels();
-	AddChannel( mInputChannel, "Serial", false );
+	AddChannel( mInputChannel, "DCC", false );
 }
 
 DCCAnalyzerSettings::~DCCAnalyzerSettings()
@@ -34,7 +31,7 @@ DCCAnalyzerSettings::~DCCAnalyzerSettings()
 bool DCCAnalyzerSettings::SetSettingsFromInterfaces()
 {
 	mInputChannel = mInputChannelInterface.GetChannel();
-	mBitRate = mBitRateInterface.GetInteger();
+	mStrictTiming = mStrictTimingInterface.GetValue();
 
 	ClearChannels();
 	AddChannel( mInputChannel, "DCC", true );
@@ -44,8 +41,8 @@ bool DCCAnalyzerSettings::SetSettingsFromInterfaces()
 
 void DCCAnalyzerSettings::UpdateInterfacesFromSettings()
 {
-	mInputChannelInterface.SetChannel( mInputChannel );
-	mBitRateInterface.SetInteger( mBitRate );
+	mInputChannelInterface.SetChannel(mInputChannel);
+	mStrictTimingInterface.SetValue(mStrictTiming);
 }
 
 void DCCAnalyzerSettings::LoadSettings( const char* settings )
@@ -54,7 +51,7 @@ void DCCAnalyzerSettings::LoadSettings( const char* settings )
 	text_archive.SetString( settings );
 
 	text_archive >> mInputChannel;
-	text_archive >> mBitRate;
+	text_archive >> mStrictTiming;
 
 	ClearChannels();
 	AddChannel( mInputChannel, "DCC", true );
@@ -67,7 +64,7 @@ const char* DCCAnalyzerSettings::SaveSettings()
 	SimpleArchive text_archive;
 
 	text_archive << mInputChannel;
-	text_archive << mBitRate;
+	text_archive << mStrictTiming;
 
 	return SetReturnString( text_archive.GetString() );
 }

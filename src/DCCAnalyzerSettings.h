@@ -17,11 +17,11 @@ public:
 
 	
 	Channel mInputChannel;
-	U32 mBitRate;
+	bool mStrictTiming;
 
 protected:
-	AnalyzerSettingInterfaceChannel	mInputChannelInterface;
-	AnalyzerSettingInterfaceInteger	mBitRateInterface;
+	AnalyzerSettingInterfaceChannel mInputChannelInterface;
+	AnalyzerSettingInterfaceBool mStrictTimingInterface;
 };
 
 #endif //DCC_ANALYZER_SETTINGS
