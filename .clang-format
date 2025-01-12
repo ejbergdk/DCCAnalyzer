@@ -1,32 +1,27 @@
-# Logic style
-Language: Cpp
-# manually added flags
-FixNamespaceComments: 'false'
-SortIncludes: 'false'
-
-
-# flags copied from web editor, https://zed0.co.uk/clang-format-configurator/
+﻿---
 AllowShortBlocksOnASingleLine: 'false'
 AllowShortCaseLabelsOnASingleLine: 'false'
 AllowShortFunctionsOnASingleLine: None
-AllowShortIfStatementsOnASingleLine: 'false'
+AllowShortIfStatementsOnASingleLine: Never
 AllowShortLoopsOnASingleLine: 'false'
 AlwaysBreakAfterReturnType: None
-AlwaysBreakTemplateDeclarations: 'true'
 BreakBeforeBraces: Allman
+BreakConstructorInitializers: BeforeColon
+BreakInheritanceList: BeforeColon
 ColumnLimit: '140'
-ConstructorInitializerAllOnOneLineOrOnePerLine: 'true'
 ContinuationIndentWidth: '4'
-Cpp11BracedListStyle: 'false'
+Cpp11BracedListStyle: 'true'
 IndentWidth: '4'
 KeepEmptyLinesAtTheStartOfBlocks: 'false'
+Language: Cpp
 MaxEmptyLinesToKeep: '2'
 NamespaceIndentation: All
 PointerAlignment: Left
-SpaceBeforeParens: Never
+SortIncludes: 'false'
+SpaceBeforeParens: ControlStatements
 SpaceInEmptyParentheses: 'false'
-SpacesInCStyleCastParentheses: 'true'
-SpacesInParentheses: 'true'
-SpacesInSquareBrackets: 'true'
+SpacesInCStyleCastParentheses: 'false'
 TabWidth: '4'
 UseTab: Never
+
+...

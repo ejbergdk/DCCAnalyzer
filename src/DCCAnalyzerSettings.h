@@ -6,22 +6,22 @@
 
 class DCCAnalyzerSettings : public AnalyzerSettings
 {
-public:
-	DCCAnalyzerSettings();
-	virtual ~DCCAnalyzerSettings();
+  public:
+    DCCAnalyzerSettings();
+    virtual ~DCCAnalyzerSettings();
 
-	virtual bool SetSettingsFromInterfaces();
-	void UpdateInterfacesFromSettings();
-	virtual void LoadSettings( const char* settings );
-	virtual const char* SaveSettings();
+    virtual bool SetSettingsFromInterfaces();
+    void UpdateInterfacesFromSettings();
+    virtual void LoadSettings(const char* settings);
+    virtual const char* SaveSettings();
 
-	
-	Channel mInputChannel;
-	bool mStrictTiming;
 
-protected:
-	AnalyzerSettingInterfaceChannel mInputChannelInterface;
-	AnalyzerSettingInterfaceBool mStrictTimingInterface;
+    Channel mInputChannel;
+    bool mStrictTiming;
+
+  protected:
+    AnalyzerSettingInterfaceChannel mInputChannelInterface;
+    AnalyzerSettingInterfaceBool mStrictTimingInterface;
 };
 
-#endif //DCC_ANALYZER_SETTINGS
+#endif // DCC_ANALYZER_SETTINGS
