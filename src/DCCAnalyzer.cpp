@@ -65,7 +65,7 @@ void DCCAnalyzer::WorkerThread()
     U32 checksum;
     BitTimingFilterType* pFilter;
 
-    if (mSettings->mStrictTiming)
+    if (mSettings.mStrictTiming)
         pFilter = &filter_strict;
     else
         pFilter = &filter_relaxed;
@@ -89,7 +89,7 @@ void DCCAnalyzer::WorkerThread()
         {
             if (mState != DS_IDLE && mState != DS_PREAMBLE)
             {
-                mResults->AddMarker(mPrevEdge, AnalyzerResults::Stop, mSettings->mInputChannel);
+                mResults->AddMarker(mPrevEdge, AnalyzerResults::Stop, mSettings.mInputChannel);
             }
             mState = DS_IDLE; // Reset DCC packet decoder state machine
             continue;
@@ -99,7 +99,7 @@ void DCCAnalyzer::WorkerThread()
 
         // Display timing errors
         if (timing_error)
-            mResults->AddMarker(mPrevEdge + (bittime >> 1), AnalyzerResults::ErrorSquare, mSettings->mInputChannel);
+            mResults->AddMarker(mPrevEdge + (bittime >> 1), AnalyzerResults::ErrorSquare, mSettings.mInputChannel);
 
         // Pass half-bits as full bits in IDLE and PREAMBLE. Do proper full-bit decoding otherwise
         if (mState == DS_IDLE || mState == DS_PREAMBLE)
@@ -119,7 +119,7 @@ void DCCAnalyzer::WorkerThread()
                 prev_bit = BS_NONE;
                 mState = DS_IDLE;
                 // Place error marker here
-                mResults->AddMarker(mPrevEdge, AnalyzerResults::Stop, mSettings->mInputChannel);
+                mResults->AddMarker(mPrevEdge, AnalyzerResults::Stop, mSettings.mInputChannel);
                 continue;
             }
             // Both half-bits matches. We now have a full 0 or 1 bit
@@ -131,7 +131,7 @@ void DCCAnalyzer::WorkerThread()
                 if (sum > pFilter->bit0summax)
                 {
                     // Place error marker here
-                    mResults->AddMarker(mPrevEdge, AnalyzerResults::ErrorX, mSettings->mInputChannel);
+                    mResults->AddMarker(mPrevEdge, AnalyzerResults::ErrorX, mSettings.mInputChannel);
                     if (sum > filter_outofspec.bit0summax)
                     {
                         // Completely out-of-spec. Reset frame decoder
@@ -151,7 +151,7 @@ void DCCAnalyzer::WorkerThread()
                 if (diff > pFilter->bit1diffmax)
                 {
                     // Place error marker here
-                    mResults->AddMarker(mPrevEdge, AnalyzerResults::ErrorX, mSettings->mInputChannel);
+                    mResults->AddMarker(mPrevEdge, AnalyzerResults::ErrorX, mSettings.mInputChannel);
                     if (diff > filter_outofspec.bit1diffmax)
                     {
                         // Completely out-of-spec. Reset frame decoder
@@ -204,7 +204,7 @@ void DCCAnalyzer::WorkerThread()
                     if (bit_count < pFilter->preamble_count_min)
                     {
                         frame.mFlags |= DISPLAY_AS_ERROR_FLAG;
-                        mResults->AddMarker((frame_start + mPrevEdge) >> 1, AnalyzerResults::Stop, mSettings->mInputChannel);
+                        mResults->AddMarker((frame_start + mPrevEdge) >> 1, AnalyzerResults::Stop, mSettings.mInputChannel);
                     }
                     mResults->AddFrame(frame);
                     mResults->CommitResults();
@@ -223,7 +223,7 @@ void DCCAnalyzer::WorkerThread()
             // bittype can only be BS_0 if we ended up here
 
             // Set data byte start marker
-            mResults->AddMarker(mPrevEdge, AnalyzerResults::Zero, mSettings->mInputChannel);
+            mResults->AddMarker(mPrevEdge, AnalyzerResults::Zero, mSettings.mInputChannel);
 
             frame_start = mSerial->GetSampleNumber() + 1;
             data = 0;
@@ -269,7 +269,7 @@ void DCCAnalyzer::WorkerThread()
                 {
                     frame.mFlags |= DISPLAY_AS_ERROR_FLAG;
                     frame.mData1 |= ((data ^ checksum) & 0xFF) << 8;
-                    mResults->AddMarker((frame_start + frame_end) >> 1, AnalyzerResults::Stop, mSettings->mInputChannel);
+                    mResults->AddMarker((frame_start + frame_end) >> 1, AnalyzerResults::Stop, mSettings.mInputChannel);
                 }
             }
 
@@ -280,7 +280,7 @@ void DCCAnalyzer::WorkerThread()
             if (bittype == BS_0) // Start on another databyte
             {
                 // Set data byte start marker
-                mResults->AddMarker(mPrevEdge, AnalyzerResults::Zero, mSettings->mInputChannel);
+                mResults->AddMarker(mPrevEdge, AnalyzerResults::Zero, mSettings.mInputChannel);
 
                 frame_start = mSerial->GetSampleNumber() + 1;
                 data = 0;
@@ -290,7 +290,7 @@ void DCCAnalyzer::WorkerThread()
             else
             {
                 // Set data byte end marker
-                mResults->AddMarker(mPrevEdge, AnalyzerResults::One, mSettings->mInputChannel);
+                mResults->AddMarker(mPrevEdge, AnalyzerResults::One, mSettings.mInputChannel);
 
                 mState = DS_IDLE;
             }
