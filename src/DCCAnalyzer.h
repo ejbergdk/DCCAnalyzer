@@ -61,7 +61,6 @@ class ANALYZER_EXPORT DCCAnalyzer : public Analyzer2
     U64 mPrevEdge;
     DCCDecoderState mState;
 
-    void SetupResults();
     DCCBitState DetermineHalfBitType(U64 bitlen, BitTimingFilterType* filter);
 };
 
