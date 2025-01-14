@@ -21,6 +21,15 @@ void DCCAnalyzer::SetupResults()
     mResults->AddChannelBubblesWillAppearOn(mSettings.mInputChannel);
 }
 
+DCCAnalyzer::DCCBitState DCCAnalyzer::DetermineHalfBitType(U64 bitlen, BitTimingFilterType* filter)
+{
+    if (bitlen >= filter->bit0min && bitlen <= filter->bit0max)
+        return BS_0;
+    else if (bitlen >= filter->bit1min && bitlen <= filter->bit1max)
+        return BS_1;
+    return BS_NONE;
+}
+
 void DCCAnalyzer::WorkerThread()
 {
     mSampleRateHz = GetSampleRate();
