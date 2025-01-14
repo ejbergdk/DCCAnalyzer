@@ -61,8 +61,7 @@ class ANALYZER_EXPORT DCCAnalyzer : public Analyzer2
     U64 mPrevEdge;
     DCCDecoderState mState;
 
-  private:
-    DCCBitState DetermineHalfBitType(U64 bitlen, BitTimingFilterType* filter);
+    virtual DCCBitState DetermineHalfBitType(U64 bitlen, BitTimingFilterType* filter);
 };
 
 extern "C" ANALYZER_EXPORT const char* __cdecl GetAnalyzerName();
