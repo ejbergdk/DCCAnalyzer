@@ -16,7 +16,7 @@ void DCCSimulationDataGenerator::Initialize(U32 simulation_sample_rate, DCCAnaly
     mSimulationSampleRateHz = simulation_sample_rate;
     mSettings = settings;
 
-    mSerialSimulationData.SetChannel(mSettings.mInputChannel);
+    mSerialSimulationData.SetChannel(mSettings->mInputChannel);
     mSerialSimulationData.SetSampleRate(simulation_sample_rate);
     mSerialSimulationData.SetInitialBitState(BIT_HIGH);
 
