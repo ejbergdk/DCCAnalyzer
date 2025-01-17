@@ -44,7 +44,7 @@ jobs:
         name: macos_arm64
         path: ${{github.workspace}}/build/arm64/Analyzers/*.so
   linux:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
     - name: Build
@@ -52,8 +52,8 @@ jobs:
         cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Release
         cmake --build ${{github.workspace}}/build
       env:
-        CC:   gcc
-        CXX:  g++
+        CC:   gcc-10
+        CXX:  g++-10
     - name: Upload Linux build
       uses: actions/upload-artifact@v4
       with:
