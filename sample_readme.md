@@ -1,16 +1,12 @@
-# Cool 3rd Party Analyzer
+# Digital Command Control (DCC) Analyzer
 
-Original Readme Content Here
+This analyzer decodes DCC communication from a digital model train layout. This is a low-level analyzer and will only decode the DCC signal into bytes. Interpreting full packets is the job for a high-level analyzer and is NOT covered by this one (not yet at least).
 
-Documentation for the Saleae Logic Analyzer SDK can be found here:
-https://github.com/saleae/SampleAnalyzer
+Project homepage, with downloads for the old Saleae Logic version 1.x:
 
-That documentation includes:
+https://www.ejberg.dk/portfolio/saleae-dcc-decoder/
 
-- Detailed build instructions
-- Debugging instructions
-- Documentation for CI builds
-- Details on creating your own custom analyzer plugin
+The release page in this repository has Windows, Linux and Mac binaries for Logic 2.x. I usually test Windows and Linux builds when releasing, but I have no way to test on a Mac.
 
 # Installation Instructions
 
